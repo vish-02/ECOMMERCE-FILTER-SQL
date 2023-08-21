@@ -1,0 +1,104 @@
+CREATE TABLE production (
+	product_id INT IDENTITY  PRIMARY KEY,
+	product_name VARCHAR (255) NOT NULL,
+	product_size varchar (100)	NOT NULL
+
+);
+CREATE TABLE customers (
+	customer_id INT IDENTITY  PRIMARY KEY,
+	first_name VARCHAR (255) NOT NULL,
+	last_name VARCHAR (255) NOT NULL,
+	phone VARCHAR (25),
+	email VARCHAR (255) NOT NULL,
+	city VARCHAR (50),
+	state VARCHAR (25),
+	zip_code VARCHAR (5)
+);
+
+INSERT INTO production VALUES
+( 'SHIRT' , 'S'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TRACK', 'S'),
+( 'TSHIRT', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TSHIRT', 'S'),
+( 'TRACK', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TRACK' , 'S'),
+( 'TSHIRT', 'S'),
+( 'TRACK', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TRACK', 'S'),
+( 'TSHIRT', 'L'),
+( 'TSHIRT', 'S'),
+( 'TRACK', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TRACK' , 'S'),
+( 'TSHIRT', 'S'),
+( 'TRACK', 'L'),
+( 'TSHIRT', 'S'),
+( 'TSHIRT', 'L'),
+( 'TRACK', 'S'),
+( 'TSHIRT', 'L');
+
+
+INSERT INTO customers VALUES
+('MALIK','M','7334890123','MALIK123@GMAIL.COM','CHENNAI','TAMIL NADU','61'),
+('RAM','M','7330890123','RAM@GMAIL.COM','MADURAI','TAMIL NADU','71'),
+('ZAYAN','M','7344890123','ZAYAN@GMAIL.COM','CHENNAI','TAMIL NADU','81'),
+('ZUFAR','M','7334890123','ZUFAR@GMAIL.COM','MADURAI','TAMIL NADU','691'),
+('MALIK','M','7234890123','MALIK123@GMAIL.COM','CHENNAI','TAMIL NADU','11'),
+('SITA','M','7312890123','SITA@GMAIL.COM','CHENNAI','TAMIL NADU','21'),
+('MALIK','M','7334893423','MALIK123@GMAIL.COM','CHENNAI','TAMIL NADU','31'),
+('GANESH','M','7334893423','GANESH@GMAIL.COM','MADURAI','TAMIL NADU','41'),
+('TOM','M','7334834123','TOM@GMAIL.COM','TRICHY','TAMIL NADU','61'),
+('JHONTY','M','7334812123','JHONTY@GMAIL.COM','CHENNAI','TAMIL NADU','51'),
+('MALIK','M','7334835123','MALIK123@GMAIL.COM','TRICHY','TAMIL NADU','51');
+
+SELECT * 
+FROM production
+WHERE product_size='L'AND product_name='TSHIRT'(SELECT * FROM production
+WHERE product_size='S'AND product_name='TSHIRT');
+ --FROM THIS WE COME TO KNOW THAT SAME AMOUNTY  OF PEOPLE HAVE ORDERED S AND L FOR THSIRT ,NEXT DESIGN SHOULD BE IMPROVED SO THAT WE COULD REACH LOT OF TARGETS 
+ SELECT * 
+FROM production
+WHERE product_size='L'AND product_name='TRACK'(SELECT * FROM production
+WHERE product_size='S'AND product_name='TRACK');
+
+--HERE WE  COME TO KNOW WE MUST MARKET OUR PRODUCT FOR TRACK 
+
+---NOW WE HAVE COMBINED THE TABLE 
+SELECT* 
+FROM customers
+JOIN production
+ON customers.customer_id=production.product_id  
+
+
+---NOW WE HAVE THE RECORDS FROM CHENNAI 
+SELECT* 
+FROM customers
+JOIN production
+ON customers.customer_id=production.product_id  
+WHERE CITY ='CHENNAI';
+---NOW WE HAVE THE RECORDS FROM OTHER CITY
+SELECT* 
+FROM customers
+JOIN production
+ON customers.customer_id=production.product_id  
+WHERE CITY !='CHENNAI';
+
+--NOW WE COME TO KNOW THAT WE HAVE CUSTOMERS FROM MADURAI AND TRICHY 
+
+SELECT first_name,product_name,city
+FROM customers
+JOIN production
+ON customers.customer_id=production.product_id  
+GROUP BY  first_name,product_name,city ;
+--- THE MOST SELLING PRODUCT WAS TSHIRT FROM CHENNAI WE HAVE LOT OF CUSTOMER
